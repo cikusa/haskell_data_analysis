@@ -5,8 +5,6 @@ import Data.Vector ((!))
 import qualified Data.Vector as V
 import Data.Hashable
 
-import Debug.Trace
-
 bmh :: (Eq a, Hashable a) => [a] -> [a] -> Maybe Int
 bmh pat xs = bmh' begin begin 0
   where
@@ -28,4 +26,4 @@ bmh pat xs = bmh' begin begin 0
           shift q = n + if q > j then 1 else i - q
 
 revIndexMap :: (Eq a, Hashable a) => V.Vector a -> M.HashMap a Int
-revIndexMap xs = M.fromList $ zip (reverse $ V.toList xs) [0..]
+revIndexMap xs = M.fromList [(xs ! i, i) | i <- [0 .. V.length xs]]
